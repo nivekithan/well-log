@@ -8,6 +8,14 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "~/components/ui/tabs";
+import {
+  densityLogLeft,
+  densityLogRight,
+  neutronLogLeft,
+  neutronLogRight,
+  resistivityLogLeft,
+  resistivityLogRight,
+} from "~/images";
 import { cn } from "~/lib/utils";
 
 export const meta: MetaFunction = () => {
@@ -141,6 +149,10 @@ const ALL_LOGS = {
       { name: "n", display: "n (Saturation Exponent)" },
       { name: "sw", display: "Water saturation" },
     ],
+    images: {
+      left: resistivityLogLeft,
+      right: resistivityLogRight,
+    },
   },
   neutron: {
     value: "neutron",
@@ -150,6 +162,10 @@ const ALL_LOGS = {
       { name: "cmatrix", display: "Count rate of matrix rocks (Cmatrix)" },
       { name: "cfluid", display: "Count rate of fluid (Cfluid)" },
     ],
+    images: {
+      left: neutronLogLeft,
+      right: neutronLogRight,
+    },
   },
   density: {
     value: "density",
@@ -159,6 +175,10 @@ const ALL_LOGS = {
       { name: "rhomatrix", display: "Matrix Density" },
       { name: "rhofluid", display: "Fluid density" },
     ],
+    images: {
+      left: densityLogLeft,
+      right: densityLogRight,
+    },
   },
   sonic: {
     value: "sonic",
@@ -168,6 +188,10 @@ const ALL_LOGS = {
       { name: "deltatmatrix", display: "Matrix transit time" },
       { name: "deltatfluid", display: "Fluid Transit time" },
     ],
+    images: {
+      left: "https://image2.slideserve.com/3698365/sonic-velocity-logs-l.jpg",
+      right: "https://i.ytimg.com/vi/PQv9QZGJenQ/maxresdefault.jpg",
+    },
   },
 };
 
@@ -200,8 +224,15 @@ export default function Index() {
             <TabsContent
               value={ALL_LOGS[key].value}
               key={key}
-              className="mt-4 grid place-items-center"
+              className="mt-4 flex"
             >
+              <div className="flex-1 grid place-items-center">
+                <img
+                  src={ALL_LOGS[key].images.left}
+                  alt=""
+                  className="max-w-[320px]"
+                />
+              </div>
               <Form
                 className="flex flex-col gap-y-6 min-w-[320px]"
                 method="POST"
@@ -234,6 +265,13 @@ export default function Index() {
                     : null}
                 </p>
               </Form>
+              <div className="flex-1 grid place-items-center">
+                <img
+                  src={ALL_LOGS[key].images.right}
+                  alt=""
+                  className="max-w-[320px]"
+                />
+              </div>
             </TabsContent>
           );
         })}
